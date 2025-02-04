@@ -1,18 +1,9 @@
-# Publish your Obsidian Notes
+# Loren's 網管筆記
 
-MkDocs template [![Built with Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
-
-Would you like to take _some_ of your notes in [Obsidian](https://obsidian.md/) and make it public?
-
-This template gives you an easy (and automated) way to publish your Obsidian notes (or blog!) on your Github pages.
-
-With this template, you get these **out-of-the-box**:
+MkDocs template [![Built with Material for MkDocs|204x28](https://img.shields.io/badge/Material_for_MkDocs-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 
 - an awesome website based on Material theme, complete with a search bar (Checkout this template repo published [here](https://jobindjohn.github.io/obsidian-publish-mkdocs/))
 ![](2021-11-22-22-49-26.png)
-- get the Obsidian/Roam style `[[wikilinks]]` from your vault in your published notes
-- Toggle between light and dark mode
-- Blog folder
 
 ## Quick start
 
