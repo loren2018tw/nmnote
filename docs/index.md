@@ -1,11 +1,7 @@
-# Loren's 網管筆記
+# Welcome
 
-Publish your public notes with MkDocs
-fdbdfb
-## Hello World!
+歡迎來到 Loren's  網管筆記... 
 
-The `index.md` in the `/docs` folder is the homepage you see here.
+![[syslog_flow_snmp.png|405x360]]
 
-The folders in `/docs` appear as the main sections on the navigation bar.
 
-The notes appear as pages within these sections. For example, [[Note 1]] in `Topic 1`
