@@ -1,4 +1,4 @@
-# Obsidian Notes
+# Loren's 網管筆記
 
 Publish your public notes with MkDocs
 
