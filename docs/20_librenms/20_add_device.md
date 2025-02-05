@@ -1,8 +1,17 @@
+# Librenms 基本操作
+## 更改界面語言
+
+先將 librenms 界面改為繁體中文，以下將使用中文界面做介紹
+
+![[1738764958548.png]]
+
 # 新增 snmp 裝置
 
-虛擬機本身就是一個網路裝置，所以這個虛擬機，已經自己先監控自己本身這臺機器。一般網管型交換器、網路型印表機都有提供 snmp 協定的服務，以便 nms 監管。甚至是一般的 windows 電腦都有內建 snmp 服務可以手動安裝開啟。
+安裝 librenms 的機器機本身就是一個網路裝置，所以在安裝 librenms 過程中，我們已經為這臺 linux 主機設定好 snmp 服務。所以我們第一步就先將本身的機器加入 librenms 監控。
 
-![](2023-12-15-19-26-38.png)
+要新增 snmp 裝置，使用上方選單的【裝置/新增裝置】
+
+
 
 先執行 [Devices/All Devices] 點選 localhost 這臺機器，看看可以看到哪些資訊。 
 ![](2023-12-20-14-23-43.png)
@@ -57,9 +66,6 @@ nano /opt/librenms/config.php
 $config['discovery_by_ip'] = true;
 ```
 以上設定好， librenms 就會自動探索（6小時一次）
-
-***ps: virtualbox 使用右邊 ctrl 作為脫離虛擬機視窗的按鍵，所以 nano 要存檔及離開，請使用[左側Ctrl+O]、[左側Ctrl+x]***
-
 
 ## 手動 snmp 掃描
 自動探索是利用交換器的 XDP 之間的連線資訊來更新裝置。我們可以使用手動掃描整個網域的 snmp 來強制更新裝置。只要在 /opt/librenms/ 目錄下，執行 #snmp-scan.py -v 即可看到掃描的過程

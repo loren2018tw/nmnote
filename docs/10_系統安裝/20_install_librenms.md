@@ -52,7 +52,8 @@ sudo -u librenms ./scripts/composer_wrapper.php install --no-dev
 >`sudo nano /etc/php/8.3/fpm/php.ini`
 >
 >![[image-1.png|500x370]]
->nano 的命令提示顯示在下方，例如要存檔就是使用 ++"左ctrl"+o++... 不用背是不是很方便 :)
+>
+>nano 的命令提示顯示在下方，例如要存檔就是使用 ++ctrl+o++... 不用背是不是很方便 :)
 
 PHP 設定檔支援的時區，請參閱 [https://php.net/manual/en/timezones.php](https://php.net/manual/en/timezones.php)
 在**上述兩個檔案**中，找到 ;date.timezone = 這一行的設定，將前面的分號（註解）去掉，將設定改成
@@ -61,7 +62,7 @@ PHP 設定檔支援的時區，請參閱 [https://php.net/manual/en/timezones.ph
 ## 配置 MariaDB
 
 編輯  /etc/mysql/mariadb.conf.d/50-server.cnf 配置檔
-在  `[mysqld]` 區塊內加入以下設定( `[mysqld]` 已經在設定檔內，不需要輸入)
+在  `[mysqld]` 區塊內加入以下設定( ===`[mysqld]` 已經在設定檔內，不需要輸入===)
 
 ```
 [mysqld]
@@ -73,6 +74,7 @@ lower_case_table_names=0
 ```bash
 sudo systemctl enable mariadb
 sudo systemctl restart mariadb
+
 ```
 
 執行 MariaDB(MySql) 文字客戶端界面，我們要建立 Librenms 所需要的資料庫跟資料表
@@ -201,6 +203,7 @@ sudo cp /opt/librenms/dist/librenms-scheduler.service /opt/librenms/dist/librenm
 
 sudo systemctl enable librenms-scheduler.timer
 sudo systemctl start librenms-scheduler.timer
+
 ```
 
 
@@ -237,36 +240,9 @@ sudo cp /opt/librenms/misc/librenms.logrotate /etc/logrotate.d/librenms
 ![[1738555043683.png|500x318]]
 
 
-## Final steps
-
 重新載入 http://localhost 就可以開始使用 librenms 
 
-## Add the first device
-
-We now suggest that you add localhost as your first device from within the WebUI.
-
-## Troubleshooting
-
-If you ever have issues with your install, run validate.php:
-
-`sudo su - librenms ./validate.php`
-
-There are various options for getting help listed on the LibreNMS web site: [https://www.librenms.org/#support](https://www.librenms.org/#support)
-
-## What next?
-
-Now that you've installed LibreNMS, we'd suggest that you have a read of a few other docs to get you going:
-
-- [Performance tuning](https://docs.librenms.org/Support/Performance/)
-- [Alerting](https://docs.librenms.org/Alerting/)
-- [Device Groups](https://docs.librenms.org/Extensions/Device-Groups/)
-- [Auto discovery](https://docs.librenms.org/Extensions/Auto-Discovery/)
-
-## Closing
-
-We hope you enjoy using LibreNMS. If you do, it would be great if you would consider opting into the stats system we have, please see [this page](https://docs.librenms.org/General/Callback-Stats-and-Privacy/) on what it is and how to enable it.
-
-If you would like to help make LibreNMS better there are [many ways to help](https://docs.librenms.org/Support/FAQ/#faq9). You can also [back LibreNMS on Open Collective](https://t.libren.ms/donations).
 
 ## 參考資料
-[Librenms官方文件-Install LibreNMS](https://docs.librenms.org/Installation/Install-LibreNMS/)
+[^1]: [Librenms官方文件-Install LibreNMS](https://docs.librenms.org/Installation/Install-LibreNMS/)
+
