@@ -18,7 +18,7 @@ tags:
 到 VirtualBox 官網下載 VirtualBox安裝檔，下載後執行安裝並執行 VirtualBox
 ![[20250123.png]]
 
-開啟 VirtualBox 後，我們新增一台虛擬機，用來安裝 Lubuntu
+開啟 VirtualBox 後，我們新增一台虛擬機（以後可能**會使用 VM 代表虛擬機**），用來安裝 Lubuntu
 
 ![[20250123-1.png]]
 
@@ -72,15 +72,20 @@ tags:
 ![[1738634232060.png]]
 
 ## 安裝 Guest Additions
+
 為了讓 host主控端要跟虛擬機（guest端）做進階的功能聯繫(剪貼簿互通、顯示驅動...等)，所以虛擬機的 Guest OS 需要安裝 virtualbox 的 guest addition 程式。
 先從虛擬機視窗功能選單執行【裝置/插入 Guest Additions CD映像】。
-![](2023-12-14-14-10-57.png)
 
-使用檔案總管開啟插入的光碟內容，我們要執行裡面的  VBoxLinuxAdditions.run
+![[1738734214908.png]]
+
+
+使用「檔案總管」開啟插入的光碟內容，我們要執行裡面的  VBoxLinuxAdditions.run
 ![[20250123-8.png]]
 
-因為必須使用 root 權限執行，我們可以開啟終端機視窗，從檔案總管開啟終端機視窗，會直接跳到目前所在目錄
-![](2023-12-15-13-55-00.png)
+因為必須使用 root 權限執行，我們可以開啟終端機視窗，從「檔案總管」開啟終端機視窗，會直接跳到目前所在目錄。
+
+![[1738734329809.png]]
+
 
 >[!Tip]
 >sudo 允許一般用戶以 root 或其他特定帳號權限執行程式，使用 sudo 會詢問使用者的密碼，這時候請輸入目前使用者(user) 的密碼，不是輸入 root 密碼，因為 Lubuntu 沒有啟用 root 帳號。
@@ -136,6 +141,15 @@ sudo apt install language-pack-zh-hant language-pack-gnome-zh-hant language-pack
 
 gimp、inkscape、krita、audacity、blender... 
 我就喜歡這種 linux 跟 windows 都有的應用程式，用久就會發現==用什麼「作業系統」不是重點，應用程式才是。==
+
+
+### 網路介面卡設定
+
+點擊 Lubuntu 右下角的網路圖示按下滑鼠右鍵++right-button++，可以設定我們這台主機要使用的 ip，預設是使用 dhcp ，如有需要可以在這裡做修改。
+
+![[1738743282954.png]]
+
+![[1738743652979.png|502x375]]
 
 ## 建立虛擬機快照
 

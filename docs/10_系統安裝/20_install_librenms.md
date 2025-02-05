@@ -1,9 +1,3 @@
----
-更新日期: 2025-02-03
-tags:
-  - librenms
-  - ubuntu_24_04
----
 
 # 安裝 Librenms 在 ubuntu 24.04
 

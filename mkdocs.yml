@@ -63,6 +63,7 @@ plugins:
   - roamlinks
   - obsidian-support
   - glightbox
+  - git-revision-date
 
 extra_javascript:
   - javascripts/mathjax.js
