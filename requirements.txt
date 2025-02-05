@@ -3,3 +3,5 @@ mkdocs-glightbox
 mkdocs-material
 mkdocs-obsidian-support-plugin
 mkdocs-roamlinks-plugin
+mkdocs-git-revision-date-plugin
+
