@@ -57,8 +57,8 @@ sudo -u librenms ./scripts/composer_wrapper.php install --no-dev
 >編輯系統的文字檔（配置檔）可以使用文字編輯器， 在命令列視窗下，可以使用 vi 或 nano 來編輯文字檔，這裡推薦使用 nano 會比較容易操作。例如要編輯上述的檔案可以使用
 >`sudo nano /etc/php/8.3/fpm/php.ini`
 >
->![[image-1.png]]
->nano 的命令提示顯示在下方，例如要存檔就是使用 【左Ctrl+O 】... 不用背是不是很方便 :)
+>![[image-1.png|500x370]]
+>nano 的命令提示顯示在下方，例如要存檔就是使用 ++"左ctrl"+o++... 不用背是不是很方便 :)
 
 PHP 設定檔支援的時區，請參閱 [https://php.net/manual/en/timezones.php](https://php.net/manual/en/timezones.php)
 在**上述兩個檔案**中，找到 ;date.timezone = 這一行的設定，將前面的分號（註解）去掉，將設定改成
@@ -67,9 +67,10 @@ PHP 設定檔支援的時區，請參閱 [https://php.net/manual/en/timezones.ph
 ## 配置 MariaDB
 
 編輯  /etc/mysql/mariadb.conf.d/50-server.cnf 配置檔
-在  `[mysqld]` 區塊內加入以下設定
+在  `[mysqld]` 區塊內加入以下設定( `[mysqld]` 已經在設定檔內，不需要輸入)
 
 ```
+[mysqld]
 innodb_file_per_table=1
 lower_case_table_names=0
 ```

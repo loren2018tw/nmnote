@@ -2,6 +2,8 @@ site_name: Loren's 網管筆記
 
 theme:
   name: "material"
+  icon:
+    logo: material/lan-connect
   palette:
     # Light mode
     - media: "(prefers-color-scheme: light)"
