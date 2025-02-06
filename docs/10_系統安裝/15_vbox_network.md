@@ -1,4 +1,4 @@
-# VireualBox 網路設定
+# VirtualBox 網路設定
 
 
 ## NAT vs 橋接網路
