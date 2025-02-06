@@ -102,13 +102,23 @@ sudo ./VBoxLinuxAdditions.run
 接著請**重新開機**，重開機後 guest 就支援畫面更大的解析度，以及 host 跟 guest 雙向剪貼簿功能，可以在一邊複製後，貼到另一邊。
 
 ## Lubuntu 軟體安裝
-### 安裝中文輸入法及補齊中文翻譯
+
+### 安裝 ssh server
 
 開啟終端機（命令列）視窗內
 
 ![[2023-12-12-08-50-31.png]]
 
-執行以下指令安裝「 fcitx + 新酷音」中文輸入法  。 apt 是 ubuntu 、 debian 系統命令列的套件安裝管理程式。
+
+apt 是 ubuntu 、 debian 系統命令列的套件安裝管理程式。執行以下指令安裝「 openssh-server」
+
+```bash
+apt install openssh-server
+```
+
+### 安裝中文輸入法及補齊中文翻譯
+
+執行以下指令安裝「 fcitx + 新酷音」中文輸入法  。 
 
 ```shell
 sudo apt install fcitx5-chewing
