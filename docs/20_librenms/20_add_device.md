@@ -35,6 +35,18 @@
 ![[1738804070501.png]]
 
 
+## 已加入的裝置設定
+
+每台受控裝置，我們還可修改一些這臺裝置的設定。例如要顯示的名稱，機器的位置...
+
+進入每臺機器的頁面，點選右側的齒輪圖示，可以進入裝置的設定頁面
+
+![[1738850922308.png]]
+
+其中確認裝置的類型，還有複寫機器放置的位置 sysLocation，對於管理會有很大的幫助，建議這兩個部份資料正確。
+
+![[1738851312633.png]]
+
 ## 自動探索加入裝置
 
 要一台一台加入受控裝置實在太麻煩，所以 librenms 有提供一些自動探索加入裝置的機制，這個機制預設是6小時會執行一次(新增的裝置5分鐘後會使用自動探索一次)。
@@ -61,7 +73,7 @@ community 如果只有 public 這邊就不用新增，如果有自訂的 communi
 編輯設定檔
 
 ```
-nano /opt/librenms/config.php
+sudo -u librenms nano /opt/librenms/config.php
 ```
 在設定檔加上以下這一行
 ```
@@ -74,36 +86,14 @@ $config['discovery_by_ip'] = true;
 
 只要在 /opt/librenms/ 目錄下，執行 #snmp-scan.py -v 即會手動掃描前面自動探索設定的網域
 
-```
+```bash
 cd /opt/librenms/
 sudo -u librenms ./snmp-scan.py -v 
 ```
 
 > [!warning]
 >snmp-scan.py 這個程式非常佔用記憶體 ，建議不要一次掃太大範圍的網域。我們也可以手動指定要掃描的網域範圍例如 10.1.4.0/24 就改用下列指令
->```
+>```bash
 >cd /opt/librenms/
 >sudo -u librenms ./snmp-scan.py -v 10.1.4.0/24
 >```
-
-
-# 常用應用介紹
-![](2023-12-20-15-15-23.png)
-
-## arp table
-L3 用來紀錄 ipv4 跟 mac address 的對照表。所以交換器、電腦、router只要有封包通過，就會快取 ipv4跟 mac address 的對照資料，因為會更新快取，所以留存時間不長(通常約5分鐘)，如果電腦未連線，可能就查詢不到。
-
-## fdb (forwarding database) table
-L2 交換器會紀錄哪個 port 通過的封包 mac address，以及方向。所以經過分析，如果進入某個交換器的某個 port，一直都是固定的 mac address，我們就可以知道該裝置就是接在那個孔上面。
-
-## 尋找網路裝置在哪裡？
-2. 假設要找 10.1.9.210 在哪邊，先使用 arp 查詢找到他的 mac address
-![](2023-12-20-16-25-08.png)
-
-3. 接著使用 FDB 查詢，填入 mac address 查詢，會查詢到很多交換器的 port 都有通過這個 mac address的封包，可是有一個 port 每次進入的封包，都是這個 mac address，所以 librenms 就猜測，這個裝置應該就是在這個 port 上。
-![](2023-12-20-16-30-20.png)
-
-不過這個裝置需要接在網管型交換器上面，才查詢的到，所以如果沒有查詢到星號，表示這個裝置中間還有接到一般非網管交換器。
-
-
-# 結論： ip 鎖 mac 才是王道
