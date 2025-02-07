@@ -43,8 +43,9 @@ cd /opt/librenms
 sudo -u librenms ./scripts/composer_wrapper.php install --no-dev
 ```
 
-## 設定 php 時區
+## 設定時區
 
+### php時區
 編輯 /etc/php/8.3/fpm/php.ini 和 /etc/php/8.3/cli/php.ini 兩個檔案（須有管理權限）。
 
 >[!Tip]
@@ -58,6 +59,11 @@ sudo -u librenms ./scripts/composer_wrapper.php install --no-dev
 PHP 設定檔支援的時區，請參閱 [https://php.net/manual/en/timezones.php](https://php.net/manual/en/timezones.php)
 在**上述兩個檔案**中，找到 ;date.timezone = 這一行的設定，將前面的分號（註解）去掉，將設定改成
 `date.timezone = Asia/Taipei`
+
+### 作業系統時區
+```
+sudo timedatectl set-timezone Asia/Taipei
+```
 
 ## 配置 MariaDB
 
@@ -84,8 +90,9 @@ sudo mysql -u root
 ```
 
 >[!note]
-下面是建立資料庫相關的 sql script 指令腳本，在 **MySql 文字客戶端界面下** (不是 Linux 的命令列環境下)貼上下面的 script，執行完腳本之後會自動退出到 Linux 的命令列
-如果為了安全性可以將 'password' 改成你要使用的資料庫存取密碼
+下面是建立資料庫相關的 sql script 指令腳本，在 **MySql 文字客戶端界面下** (不是 Linux 的命令列環境下)貼上下面的 script，==執行完腳本之後會自動退出到 Linux 的命令列==
+>
+>如果為了安全性可以將 'password' 改成你要使用的資料庫存取密碼，記住這個密碼，後面的網頁安裝步驟會用到
 
 ```
 CREATE DATABASE librenms CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -169,27 +176,21 @@ sudo cp /opt/librenms/misc/lnms-completion.bash /etc/bash_completion.d/
 
 ## 配置 snmpd
 
-備份預設的 snmp 設定檔，建立一個空白的snmp 設定檔 /etc/snmp/snmpd.conf
+複製 librenms 提供的 snmpd 設定範本
+```
+sudo cp /opt/librenms/snmpd.conf.example /etc/snmp/snmpd.conf
+```
+
+編輯 /etc/snmp/snmpd.conf 設定檔，將檔案內的 RANDOMSTRINGGOESHERE 字串修改為 public 或是自訂的 snmp 社群字串(密碼)
+`sudo nano /etc/snmp/snmpd.conf`
+
+重啟 snmpd 服務
+
 ```bash
-sudo mv  /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.bak
-sudo touch /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf
-
-```
-
-編輯 /etc/snmp/snmpd.conf 檔案為以下內容：
-```
-#下行 public 可以更改為自己設定的通訊字串（可以當作 snmp 存取密碼）
-rocommunity  public
-syslocation  ""
-sysContact   ""
-```
-
-重新啟動 snmpd 服務
-```bash
+sudo curl -o /usr/bin/distro https://raw.githubusercontent.com/librenms/librenms-agent/master/snmp/distro chmod +x /usr/bin/distro
+sudo systemctl enable snmpd
 sudo systemctl restart snmpd
 ```
-
-
 ## 設定定時工作(Cron job)
 
 ```bash
@@ -203,9 +204,7 @@ sudo cp /opt/librenms/dist/librenms-scheduler.service /opt/librenms/dist/librenm
 
 sudo systemctl enable librenms-scheduler.timer
 sudo systemctl start librenms-scheduler.timer
-
 ```
-
 
 ## 複製日誌 (logrotate) 滾動分割設定
 
