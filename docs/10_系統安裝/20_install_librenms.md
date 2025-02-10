@@ -1,5 +1,5 @@
 
-# 安裝 Librenms 在 ubuntu 24.04
+# 安裝 Librenms 在 Lubuntu 24.04
 
 
 > [!info] 

@@ -2,15 +2,16 @@
 
 ![](2024-01-19-08-58-34.png)
 
-Weathermap 是用來視覺化網路傳輸跟實體線路頻寬的比例，用來觀察整體實體線路架構頻寬是否足夠。
+Weathermap 是用來視覺化網路傳輸跟實體線路頻寬的比例，用來觀察整體實體線路架構頻寬是否足夠。 先來看一下學術網路的 weathermap 長什麼樣吧！
+[https://traffic.tanet.edu.tw/index.html](https://traffic.tanet.edu.tw/index.html)
 
 
 ## Weathermap plugins 安裝 
-官方安裝文件
-https://docs.librenms.org/Extensions/Weathermap/
 
+可參閱 [官方安裝文件](https://docs.librenms.org/Extensions/Weathermap/) 
 
 Weathermap 需要 php-pear  才能正常使用，所以先安裝 php-pear，之後重新啟動 php-fpm (8.3是版本號碼，請依照系統安裝的版本做修改)
+
 ```shell
 sudo apt install php-pear
 sudo systemctl restart php8.3-fpm
@@ -38,16 +39,25 @@ sudo nano /etc/cron.d/librenms
 ![[1738928943573.png]]
 
 
-## 開啟編輯器
-1. 
+
+## 手動編輯 weather 流量圖
+
+從主選單【概觀/外掛/Weather】  開啟編輯器
+
 ![](2024-01-19-11-38-28.png)
-2. 
+
+開啟後還要點一個連結，才會打開 weather 的編輯器管理畫面。
+
 ![](2024-01-19-11-39-38.png)
-3.
-![](2024-01-19-11-48-41.png)
+
+我們可以建立很多流量圖，每個流量圖就是一個單獨的設定檔，中間輸入一個設定檔檔名，名稱不能包含空白，且一定要用 .conf 結尾。
+下方會列出已經建立好的設定檔，點擊名稱就可以編輯。
+
+![|502x460](2024-01-19-11-48-41.png)
 
 ## 編輯輸出的網頁及圖形檔
-weathermap 會定時讀取 rrd 資料，然後將流量繪製至一個圖形檔，所以我們先設定要輸出的檔案名稱
+weathermap 會定時讀取 rrd [^1] 資料，然後將流量繪製至一個圖形檔，所以我們先設定要輸出的檔案名稱。
+
 ![](2024-01-19-12-14-06.png)
 
 ## 加入節點
@@ -87,4 +97,4 @@ Wethermap 會產生一個 html 跟一個圖片檔。資訊看板中，有一個�
 
 
 
-
+[^1]: # RRDtool https://zh.wikipedia.org/zh-tw/RRDtool
