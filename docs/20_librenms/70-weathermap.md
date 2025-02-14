@@ -93,8 +93,5 @@ weathermap 會定時讀取 rrd [^1] 資料，然後將流量繪製至一個圖�
 Wethermap 會產生一個 html 跟一個圖片檔。資訊看板中，有一個外部影像的小部件，只要複製圖片網址，就可以將 weathermap 圖片顯示在看板中。不過如果一開始就打算放在看板內， Weathermap 的圖片大小建議設定小一點，以免看板顯示的圖片不清楚。
 
 
-
-
-
-
-[^1]: # RRDtool https://zh.wikipedia.org/zh-tw/RRDtool
+參考資料：
+[^1]:  RRDtool https://zh.wikipedia.org/zh-tw/RRDtool
