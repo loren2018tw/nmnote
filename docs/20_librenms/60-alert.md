@@ -71,17 +71,3 @@
 
 
 接著就等待警報發生吧! >< (聽起來怎麼怪怪的！！)
-
-## 修正時區
-收到警報訊息會發現上面的時間不對， librenms 時區是使用 php 的環境設定，所以要修改 php 的設定檔，執行
-```sh
-sudo nano /etc/php/8.1/fpm/php.ini
-```
-找到 date.timezone 設定，將他修改成 
-```
-date.timezone = "Asia/Taipei"
-```
-然後重啟 php
-```sh
-sudo systemctl restart php8.1-fpm.service
-```
