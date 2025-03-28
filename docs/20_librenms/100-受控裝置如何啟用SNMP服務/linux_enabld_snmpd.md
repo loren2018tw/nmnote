@@ -36,12 +36,14 @@ rocommunity public default
 
 >[!Tip]
 >如果要限制 NMS ip 範圍，可以參考下方設定， rocommunity 可以同時有多行，community_string_1 跟 community_string_2 可以是相同的
+>```
 >rocommunity community_string_1 192.168.0.0/24
 >rocommunity community_string_2 10.1.0.0/16
+>```
 
-## 儲存變更並重新啟動 SNMPD*
+
+## 儲存變更並重新啟動 SNMPD
 
 ```bash
 sudo systemctl restart snmpd
 ```
-
