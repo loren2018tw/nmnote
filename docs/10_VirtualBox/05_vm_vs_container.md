@@ -1,6 +1,6 @@
 # 虛擬機 vs 容器
 
-## 虛擬機 (VirtualMachine)
+## 1. 虛擬機 (VirtualMachine)
 
 虛擬機是**模擬**一台完整電腦的軟體，它有自己的作業系統、核心、函式庫和應用程式。透過 Hypervisor 在實體主機上創建多個虛擬機，每個虛擬機都像一台獨立的電腦一樣運作。
 
@@ -15,7 +15,7 @@
 
 常見 VM 管理軟體: Virtualbox、VMware Workstation、**Proxmox Virtual Environment** (KVM)  
 
-## 容器（Containers）
+## 2. 容器（Containers）
 
 容器是一種**輕量級**的虛擬化技術，它**共享**主機作業系統的核心，但有自己的檔案系統、函式庫和應用程式。透過容器引擎（如 Docker、 LXC ）在主機作業系統上創建多個容器，每個容器共享主機核心，但彼此隔離。
 優點：
@@ -34,7 +34,7 @@
 
 常見 Container: Doker、**Proxmox Virtual Environment** (LXC)
 
-### Docker vs LXC
+### 2.1. Docker vs LXC
 
 ![[1739516172770.png]]
 

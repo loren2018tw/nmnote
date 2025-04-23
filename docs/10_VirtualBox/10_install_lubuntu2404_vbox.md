@@ -6,14 +6,14 @@ tags:
 ---
 # 使用 Virtual Box 安裝 Lubuntu 24.04
 
-## 製作 lubuntu 安裝開機 usb
+## 1. 製作 lubuntu 安裝開機 usb
 
 >[!Info]
 >這一步驟是要在實體電腦安裝 Lubuntu 才需要製作 Lubuntu 的開機usb，如果是要用 VirtualBox 安裝虛擬機器，則只要下載 lubuntu iso即可。
 
 到 Lubuntu 官網 [https://lubuntu.me/downloads/]() 下載 lubuntu 24.04 iso 檔，使用 rusuf [ https://rufus.ie/zh_TW/]()  軟體製作 usb 開機碟。
 
-## 安裝 VirtualBox 虛擬機管理系統
+## 2. 安裝 VirtualBox 虛擬機管理系統
 
 到 VirtualBox 官網下載 VirtualBox安裝檔，下載後執行安裝並執行 VirtualBox
 ![[20250123.png]]
@@ -52,7 +52,7 @@ tags:
 ![[20250123-7.png|274x403]]
 
 
-## 安裝 Lubuntu
+## 3. 安裝 Lubuntu
 * 使用 usb 開機，執行第一個選項，就會先以 live cd 的模式進入 lubuntu 作業系統的界面
 
 ![[20250122-2.png]]
@@ -71,7 +71,7 @@ tags:
 
 ![[1738634232060.png]]
 
-## 安裝 Guest Additions
+## 4. 安裝 Guest Additions
 
 為了讓 host主控端要跟虛擬機（guest端）做進階的功能聯繫(剪貼簿互通、顯示驅動...等)，所以虛擬機的 Guest OS 需要安裝 virtualbox 的 guest addition 程式。
 先從虛擬機視窗功能選單執行【裝置/插入 Guest Additions CD映像】。
@@ -101,9 +101,9 @@ sudo ./VBoxLinuxAdditions.run
 ![[20250123-9.png]]
 接著請**重新開機**，重開機後 guest 就支援畫面更大的解析度，以及 host 跟 guest 雙向剪貼簿功能，可以在一邊複製後，貼到另一邊。
 
-## Lubuntu 軟體安裝
+## 5. Lubuntu 軟體安裝
 
-### 安裝 ssh server
+### 5.1. 安裝 ssh server
 
 開啟終端機（命令列）視窗內
 
@@ -116,7 +116,7 @@ apt 是 ubuntu 、 debian 系統命令列的套件安裝管理程式。執行以
 apt install openssh-server
 ```
 
-### 安裝中文輸入法及補齊中文翻譯
+### 5.2. 安裝中文輸入法及補齊中文翻譯
 
 執行以下指令安裝「 fcitx + 新酷音」中文輸入法  。 
 
@@ -132,7 +132,7 @@ sudo apt install fcitx5-chewing
 sudo apt install language-pack-zh-hant language-pack-gnome-zh-hant language-pack-kde-zh-hant libreoffice-l10n-zh-tw firefox-locale-zh-hant
 ```
 
-### 使用 GUI 界面安裝各種軟體
+### 5.3. 使用 GUI 界面安裝各種軟體
 
 如果不想用命令列安裝軟體，我們可以使用 Lubuntu 24.04 預設的GUI軟體安裝管理程式稱為 Discover
 
@@ -147,13 +147,13 @@ sudo apt install language-pack-zh-hant language-pack-gnome-zh-hant language-pack
 >sudo apt install synaptic apt-xapian-index
 >```
 
-### 常用軟體推薦，請試著自己安裝看看
+### 5.4. 常用軟體推薦，請試著自己安裝看看
 
 gimp、inkscape、krita、audacity、blender... 
 我就喜歡這種 linux 跟 windows 都有的應用程式，用久就會發現==用什麼「作業系統」不是重點，應用程式才是。==
 
 
-### 網路介面卡設定
+### 5.5. 網路介面卡設定
 
 點擊 Lubuntu 右下角的網路圖示按下滑鼠右鍵++right-button++，可以設定我們這台主機要使用的 ip，預設是使用 dhcp ，如有需要可以在這裡做修改。
 
@@ -161,7 +161,7 @@ gimp、inkscape、krita、audacity、blender...
 
 ![[1738743652979.png|502x375]]
 
-## 建立虛擬機快照
+## 6. 建立虛擬機快照
 
 虛擬通常是用來測試新軟體或環境，我們可以在任意階段將虛擬機建立一個快照，萬一系統損壞可以很容易的回存到某個狀態。
 例如我們目前的 Lubuntu 就是已經完成最基礎的 Linux安裝，以及中文環境設定，這時候我們就可以將系統做快照，除了做復原以外，我們還可以用這個快照建立新的虛擬機，可以省去安裝 Linux 跟這些設定的過程。
@@ -175,7 +175,7 @@ gimp、inkscape、krita、audacity、blender...
 
 ![[20250123-15.png]]
 
-## 打包虛擬機
+## 7. 打包虛擬機
 
 我們可以把前面完成的虛擬機打包成一個檔案，只要帶著這個檔案，就可以隨時回復出一模一樣的機器出來，這也是虛擬機的好處：可以隨時複製、打包、復原機器....
 快照可以當作單機備份，打包可以想像成獨立備份，兩個功能其實也些許重複性質。不過打包後會變成一個檔案，會比較容易攜帶或分享。
@@ -186,7 +186,7 @@ gimp、inkscape、krita、audacity、blender...
 
 ![[20250124.png]]
 
-## 匯入虛擬機
+## 8. 匯入虛擬機
 
 使用【檔案/匯入應用裝置】就可以將匯入 .ova 檔案，變成一台獨立的虛擬機。
 在匯出 ova 時我們有將虛擬機的 MAC 儲存在 .ova 檔案中，如果是用來做機器復原，我們可以選擇保留網路卡的 MAC，如果是用來建立出一個獨立的新虛擬機器，則建議選擇「**為所有網路卡產生新的MAC位址**」，以免新機器的網卡 MAC address 跟其他虛擬機重複。

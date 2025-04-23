@@ -3,14 +3,14 @@
 
 以下使用 Ubuntu 24.04 為例
 
-##  安裝 SNMP 套件
+## 1.1 安裝 SNMP 套件
 
 ```bash
 sudo apt update
 sudo apt install snmp snmpd
 ```
 
-## 編輯 snmp 設定檔
+## 1.2 編輯 snmp 設定檔
 
 SNMPD 的主要設定檔位於 `/etc/snmp/snmpd.conf`。您需要編輯此檔案以符合您的需求。建議先備份原始設定檔：
 
@@ -42,7 +42,7 @@ rocommunity public default
 >```
 
 
-## 儲存變更並重新啟動 SNMPD
+## 1.3 儲存變更並重新啟動 SNMPD
 
 ```bash
 sudo systemctl restart snmpd

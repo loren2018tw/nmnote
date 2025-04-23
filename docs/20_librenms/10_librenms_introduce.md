@@ -1,8 +1,8 @@
 # LibreNMS - SNMP 網路管理系統介紹
-## 什麼是 LibreNMS?
+## 1. 什麼是 LibreNMS?
 LibreNMS 是一套支援 SNMP 協定的「網路管理系統」（NMS）。 官方網站： [https://www.librenms.org/]()
 
-## 什麼是 SNMP : 簡易網路管理通訊協定 (SNMP) 
+## 2. 什麼是 SNMP : 簡易網路管理通訊協定 (SNMP) 
 
 簡易網路管理通訊協定 (SNMP) [^1] ，是由網際網路架構委員會 (IAB) 在 RFC1157 中定義的應用程式層通訊協定，用於交換網路裝置之間的資訊。
 
@@ -17,7 +17,7 @@ LibreNMS 是一套支援 SNMP 協定的「網路管理系統」（NMS）。 官�
 **TRAP** ： 網路裝置也可以主動傳送資料給 NMS
 ![](snmp-trap.gif)
 
-## SNMP 版本
+## 3. SNMP 版本
 
 SNMP 協定的版本越新，安全性就越高，目前最多裝置已經都支援到 v2c版本，所以我們都會使用 v2c 版本。
 
@@ -27,5 +27,5 @@ SNMP 協定的版本越新，安全性就越高，目前最多裝置已經都支
 
 另外 v2c 還會設定可以存取的 ip網段，如果設定成 0.0.0.0 表示不限制 nms 的 ip。
 
-## 參考資料
+## 4. 參考資料
 [^1]: [SNMP教程](https://www.manageengine.com/tw/network-monitoring/what-is-snmp.html)

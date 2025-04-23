@@ -6,27 +6,27 @@
 > 1. 先安裝好 Lubuntu 24.04 ，假設安裝時自訂的 Linux 系統使用者帳號密碼為 **【user:user】**
 > 2. 以下使用一般使用者命令列方式做安裝示範，所以安裝指令前都會加上 sudo，如果是使用 root 帳號，則 sudo 可以省略
 
-## 安裝必要的套件
+## 1. 安裝必要的套件
 
 ```bash
 sudo apt update
 sudo apt install acl curl fping git graphviz imagemagick mariadb-client mariadb-server mtr-tiny nginx-full nmap php-cli php-curl php-fpm php-gd php-gmp php-json php-mbstring php-mysql php-snmp php-xml php-zip rrdtool snmp snmpd unzip python3-command-runner python3-pymysql python3-dotenv python3-redis python3-setuptools python3-psutil python3-systemd python3-pip whois traceroute
 ```
 
-## 新增 librenms 使用者
+## 2. 新增 librenms 使用者
 
 ```bash
 sudo useradd librenms -d /opt/librenms -M -r -s "$(which bash)"
 ```
 
-## 下載 LibreNMS
+## 3. 下載 LibreNMS
 
 ```bash
 cd /opt
 sudo git clone https://github.com/librenms/librenms.git
 ```
 
-## 設定檔案權限
+## 4. 設定檔案權限
 
 ```bash
 sudo chown -R librenms:librenms /opt/librenms
@@ -36,16 +36,16 @@ sudo setfacl -R -m g::rwx /opt/librenms/rrd /opt/librenms/logs /opt/librenms/boo
 ```
 
 
-## 安裝 PHP 相依性管理工具(composer)
+## 5. 安裝 PHP 相依性管理工具(composer)
 
 ```bash
 cd /opt/librenms
 sudo -u librenms ./scripts/composer_wrapper.php install --no-dev
 ```
 
-## 設定時區
+## 6. 設定時區
 
-### php時區
+### 6.1. php時區
 編輯 /etc/php/8.3/fpm/php.ini 和 /etc/php/8.3/cli/php.ini 兩個檔案（須有管理權限）。
 
 >[!Tip]
@@ -60,12 +60,12 @@ PHP 設定檔支援的時區，請參閱 [https://php.net/manual/en/timezones.ph
 在**上述兩個檔案**中，找到 ;date.timezone = 這一行的設定，將前面的分號（註解）去掉，將設定改成
 `date.timezone = Asia/Taipei`
 
-### 作業系統時區
+### 6.2. 作業系統時區
 ```
 sudo timedatectl set-timezone Asia/Taipei
 ```
 
-## 配置 MariaDB
+## 7. 配置 MariaDB
 
 編輯  /etc/mysql/mariadb.conf.d/50-server.cnf 配置檔
 在  `[mysqld]` 區塊內加入以下設定( ===`[mysqld]` 已經在設定檔內，不需要輸入===)
@@ -104,7 +104,7 @@ exit
 
 ```
 
-## 配置 PHP-FPM
+## 8. 配置 PHP-FPM
 
 複製 www.conf 為範本到新配置檔 librenms.conf
 
@@ -131,7 +131,7 @@ listen = /run/php-fpm-librenms.sock
 >[!Tip]
 >如果這機器沒有其他 PHP 網頁應用程式，可以刪除 www.conf 來節省一些系統資源。
 
-## 組態 Nginx Web Server
+## 9. 組態 Nginx Web Server
 
 編輯 /etc/nginx/sites-available/default **將檔案內容清空**，直接以下面的內容取代
 
@@ -166,7 +166,7 @@ sudo systemctl restart nginx
 sudo systemctl restart php8.3-fpm
 ```
 
-## 啟用 lnms 命令自動完成
+## 10. 啟用 lnms 命令自動完成
 
 這個動作可以讓 lnms 命令跟一般 Linux 命令一樣，使用 Tab 鍵可以自動補齊完整指令。
 ```bash
@@ -174,7 +174,7 @@ sudo ln -s /opt/librenms/lnms /usr/bin/lnms
 sudo cp /opt/librenms/misc/lnms-completion.bash /etc/bash_completion.d/
 ```
 
-## 配置 snmpd
+## 11. 配置 snmpd
 
 複製 librenms 提供的 snmpd 設定範本
 ```
@@ -191,13 +191,13 @@ sudo curl -o /usr/bin/distro https://raw.githubusercontent.com/librenms/librenms
 sudo systemctl enable snmpd
 sudo systemctl restart snmpd
 ```
-## 設定定時工作(Cron job)
+## 12. 設定定時工作(Cron job)
 
 ```bash
 sudo cp /opt/librenms/dist/librenms.cron /etc/cron.d/librenms
 ```
 
-## 啟用排程
+## 13. 啟用排程
 
 ```bash
 sudo cp /opt/librenms/dist/librenms-scheduler.service /opt/librenms/dist/librenms-scheduler.timer /etc/systemd/system/
@@ -206,7 +206,7 @@ sudo systemctl enable librenms-scheduler.timer
 sudo systemctl start librenms-scheduler.timer
 ```
 
-## 複製日誌 (logrotate) 滾動分割設定
+## 14. 複製日誌 (logrotate) 滾動分割設定
 
 logrotate 是一個Unix/Linux 系統上的日誌管理工具，它的主要功能是自動輪轉、壓縮和刪除日誌文件，透過定期輪轉日誌文件，防止日誌文件變得過大。
 LibreNMS 將日誌紀錄儲存在 `/opt/librenms/logs` 這目錄，複製設定檔讓作業系統  幫我們做 logrotate 動作。
@@ -216,7 +216,7 @@ sudo cp /opt/librenms/misc/librenms.logrotate /etc/logrotate.d/librenms
 ```
 
 
-## 網頁安裝步驟
+## 15. 網頁安裝步驟
 
 接下來開啟網頁瀏覽器（如果使用虛擬機，請在虛擬機的作業系統開啟瀏覽器），打開本地端的位址，依畫面指示完成安裝 
 
@@ -242,6 +242,6 @@ sudo cp /opt/librenms/misc/librenms.logrotate /etc/logrotate.d/librenms
 重新載入 http://localhost 就可以開始使用 librenms 
 
 
-## 參考資料
+## 16. 參考資料
 [^1]: [Librenms官方文件-Install LibreNMS](https://docs.librenms.org/Installation/Install-LibreNMS/)
 
