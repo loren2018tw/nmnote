@@ -230,8 +230,18 @@ sudo cp /opt/librenms/misc/librenms.logrotate /etc/logrotate.d/librenms
 確認連線正確後，接著在資料庫建立資料表，這步驟會花比較多時間，請耐心等待
 ![[1738522802089.png|534x305]]
 
-建立 Librenms 網頁界面的使用者帳號、密碼，這裡我們都設定為 librenms。
 
+
+
+> [!warning]
+> ibrenms 建立資料庫結構需要非常久的時間（可能超過10分鐘），因為新版瀏覽器內建的連逾時限制，導致可能出現 timed out 的錯誤訊息。
+> 
+> ![[1747464748570.png]]
+> 
+> 還好 librenms 安裝過程會紀錄目前進度，所以只要重整這個頁面，再次按下【Build Database】就可以繼續未完成的動作。
+
+
+建立 Librenms 網頁界面的管理者帳號、密碼，這裡我們都設定為 librenms。
 
 ![[1738554880725.png]]
 
