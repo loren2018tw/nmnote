@@ -1,9 +1,11 @@
 
 # 使用 Docker 快速安裝 librenms
 
-docker 本身是在 Linux 環境中執行，所以以下操作，是在真實 Linux主機、虛擬機或是WSL環境下為例。
 
 # 安裝 Docker Engine
+
+> [!Info]
+> 如果是在 Windows下已安裝 wsl2 ubuntu 及 Docker Desktop(並開啟整合至 wsl2)，就不需要在 WSL2 的 ubuntu 內另外安裝 docker，請直接跳過本步驟。
 
 1. 設定 docker 軟體來源
 ```bash
