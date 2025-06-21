@@ -1,6 +1,6 @@
 
 > [!warning]
-> 確保你的 Docker Desktop 版本至少是 **4.42 (2025/6)**，因為這是原生 IPv6 支援大幅改進的版本。 (經測試... 並沒有 T_T )
+> 確保你的 Docker Desktop 版本至少是 **4.42 (2025/6)**，因為這是原生 IPv6 支援大幅改進的版本。
 
 # Docker Desktop
 
@@ -19,6 +19,21 @@ https://docs.docker.com/desktop/setup/install/windows-install/
 ![[1750387009305.png]]
 
 2.　使用 Docker Deskop 最大的好處是網路的整合，我們可以直接在外部網路連線到 Host 的 ip，就可以直接存取到 docker 中的服務，不需要再像以前去設定什麼==橋接、 mirror模式或是連結埠轉發==等功能。
+
+## Docker Desktop 啟用 ipv6支援
+
+開啟 Docker Desktop 的設定，在 Docker Engine 設定黨內，加入以下設定。
+```
+  "default-network-opts": {
+    "bridge": {
+      "com.docker.network.enable_ipv6": "true"
+    }
+  }
+```
+
+注意設定檔是 JSON 格式，所以不同列之間要有" ," 分隔。
+
+![[1750502653014.png]]
 
 ## 啟動 docker desktop ，之前執行的 container 資料會不見，重新啟動 container 資料又會恢復
 
