@@ -1,8 +1,8 @@
 
+# Docker Desktop
+
 > [!warning]
 > 確保你的 Docker Desktop 版本至少是 **4.42 (2025/6)**，因為這是原生 IPv6 支援大幅改進的版本。
-
-# Docker Desktop
 
 Docker Desktop 是桌面版的 Docker Engine（核心引擎）視窗管理程式，且可以跟 WSL2 整合，所以建議 Windows 系統安裝 Docker Desktop，這樣就不需要在每一個  WSL Linux環境下安裝 Docker Engine 了。
 
