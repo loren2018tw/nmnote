@@ -284,9 +284,6 @@ networks:
     enable_ipv6: true
     ipam:
       driver: default
-#      config:
-#        - subnet: 172.20.0.0/24 # 你的 IPv4 子網
-#        - subnet: 2001:db8:1::/64 # 你的 IPv6 子網
 ```
 
 2. 重新啟動 librenms  compose
