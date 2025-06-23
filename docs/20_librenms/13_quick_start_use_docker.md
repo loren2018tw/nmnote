@@ -44,12 +44,25 @@ wget https://github.com/librenms/docker/archive/refs/heads/master.zip
 unzip master.zip
 cd docker-master/examples/compose
 ```
-2. 啟動 Docker 容器
+2.　啟動 Librenms 前，我們可以先預做修改以下兩個檔案的設定
+
+設定時區
+```Text title=".env"
+TZ=TZ=Asia/Taipei
+```
+
+修改為用來寄送通知的寄送者 mail
+```Text title="msmtpd.env"
+SMTP_FROM=librenms@gmail.com
+```
+
+
+3. 啟動 Docker 容器
 ```bash
 sudo docker compose -f compose.yml up -d
 ```
 
-3. 開啟瀏覽器連線到  http://localhost:8000  （如果有外部 ip，建議使用外部 ip不要使用 localhost），設定我們要使用的 librenms 帳號密碼，這裡我們都設定為 librenms:librenms
+4. 開啟瀏覽器連線到  http://localhost:8000  （如果有外部 ip，建議使用外部 ip不要使用 localhost），設定我們要使用的 librenms 帳號密碼，這裡我們都設定為 librenms:librenms
 
 ![[1738554880725.png]]
 
