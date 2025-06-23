@@ -1,4 +1,8 @@
+
 # Docker Desktop
+
+> [!warning]
+> 確保你的 Docker Desktop 版本至少是 **4.42 (2025/6)**，因為這是原生 IPv6 支援大幅改進的版本。
 
 Docker Desktop 是桌面版的 Docker Engine（核心引擎）視窗管理程式，且可以跟 WSL2 整合，所以建議 Windows 系統安裝 Docker Desktop，這樣就不需要在每一個  WSL Linux環境下安裝 Docker Engine 了。
 
@@ -14,7 +18,22 @@ https://docs.docker.com/desktop/setup/install/windows-install/
 1.　開啟 Docker Desktop ，進入設定畫面，勾選要整合的 WSL 環境，按下套用，這樣 wsl ubuntu 就不須要安裝　docker engine ，卻可以直接在鏡中執行 docker 指令。
 ![[1750387009305.png]]
 
-2.　使用 Docker Deskop 最大的好處是網路的整合，我們可以直接在外部網路連線到 Host　的 ip，就可以直接存取到 docker 中的服務，不需要再像以前去設定什麼==橋接、 mirror模式或是連結埠轉發==等功能。
+2.　使用 Docker Deskop 最大的好處是網路的整合，我們可以直接在外部網路連線到 Host 的 ip，就可以直接存取到 docker 中的服務，不需要再像以前去設定什麼==橋接、 mirror模式或是連結埠轉發==等功能。
+
+## Docker Desktop 啟用 ipv6支援
+
+開啟 Docker Desktop 的設定，在 Docker Engine 設定黨內，加入以下設定。
+```
+  "default-network-opts": {
+    "bridge": {
+      "com.docker.network.enable_ipv6": "true"
+    }
+  }
+```
+
+注意設定檔是 JSON 格式，所以不同列之間要有" ," 分隔。
+
+![[1750502653014.png]]
 
 ## 啟動 docker desktop ，之前執行的 container 資料會不見，重新啟動 container 資料又會恢復
 
@@ -37,20 +56,8 @@ A: 以下為 Gemini 解答
 ### 解決方案與建議
 
 為了確保您的 Docker 資料能夠一致且可靠地被讀取，請遵循以下建議：
-
-1. **優先啟動 WSL Ubuntu：**
-    
+**優先啟動 WSL Ubuntu：**
     - **最佳實踐：** 始終確保您的 WSL Ubuntu 發行版已經啟動並運行一段時間，然後再開啟 Docker Desktop。您可以在 Windows 的搜尋欄中輸入 "ubuntu" 並啟動它，或者在命令提示字元或 PowerShell 中執行 `wsl` 命令。
     - **檢查 WSL 狀態：** 您可以使用 `wsl -l -v` 命令來查看所有 WSL 發行版的狀態。確保 Docker Desktop 所使用的 Ubuntu 發行版狀態為 `Running`。
-2. **設定 Docker Desktop 自動啟動：**
-    
-    - 如果您希望 Docker Desktop 總是在 Windows 啟動時自動運行，請確保在 Docker Desktop 的設定中啟用了「**Start Docker Desktop when you log in**」選項。
-    - 但是，即使自動啟動，您仍然可能需要確保 WSL 在 Docker Desktop 之前完成初始化，這就是為什麼手動啟動 WSL Ubuntu 會有幫助。
-3. **檢查 Docker Desktop WSL 整合設定：**
-    
-    - 在 Docker Desktop 的 **Settings (設定)** > **Resources (資源)** > **WSL Integration (WSL 整合)** 中，確認您正在使用的 Ubuntu 發行版已啟用。這能確保 Docker 能夠與您的 Ubuntu 環境正確溝通。
-4. **重新啟動 Docker Desktop：**
-    
-    - 如果遇到資料讀取問題，一個簡單有效的解決方法是先確保 WSL Ubuntu 已經運行，然後從 Windows 任務列的系統托盤中右鍵點擊 Docker 圖示，選擇 **Quit Docker Desktop (退出 Docker Desktop)**，然後再重新啟動它。
-
+    - 
 總之，這個問題的關鍵在於 Docker Desktop 對 WSL 2 後端的依賴性。只要確保 WSL 環境在 Docker 啟動前已完全準備就緒，就能避免這種暫時性的資料讀取異常。
