@@ -1,7 +1,7 @@
 
 # 使用 Docker 快速安裝 librenms
 
-## 安裝 Docker Engine
+## 1. 安裝 Docker Engine
 
 > [!Info]
 > 如果是在 Windows下已安裝 wsl2 ubuntu 及 Docker Desktop(並開啟整合至 wsl2)，就不需要在 WSL2 的 ubuntu 內另外安裝 docker engine，請直接跳過本步驟。
@@ -33,7 +33,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
  sudo docker run hello-world
 ```
 
-## 使用 docker 執行 librenms
+## 2. 使用 docker 執行 librenms
 
 1. 下載並解壓縮 librenms 的 composer 檔：
 ```bash
@@ -48,7 +48,7 @@ cd docker-master/examples/compose
 
 設定時區
 ```Text title=".env"
-TZ=TZ=Asia/Taipei
+TZ=Asia/Taipei
 ```
 
 修改為用來寄送通知的寄送者 mail
@@ -68,7 +68,7 @@ sudo docker compose -f compose.yml up -d
 
 3. 完成安裝....
 
-## 備份或遷移使用 docker 安裝的 Librenms
+## 3. 備份或遷移使用 docker 安裝的 Librenms
 
 依照預設安裝路徑，我們只要備份　docker-master/examples/compose　這個資料夾即可將整個 librenms 備份或帶走，只要複製到另一個 Linux 主機或系統，再執行前面步驟2方式啟動 Docker 容器，整個 librenms 就恢復了。
 
@@ -81,11 +81,11 @@ sudo docker compose -f compose.yml up -d
 tar -zxvf compose.tar.gz
 ```
 
-## 讓 Docker Engine支援 ipv6
+## 4. 讓 Docker Engine支援 ipv6
 
 >[!Tip]
 >使用 Docker Desktop 不需要這個步驟
-### 修改 docker 主程式設定 daemon.json
+### 4.1. 修改 docker 主程式設定 daemon.json
 
 1. 編輯 /etc/docker/daemon.json ，加入以下內容
 ```JSON title="JSON"
@@ -102,7 +102,7 @@ tar -zxvf compose.tar.gz
 sudo systemctl restart docker
 ```
 
-### 修改 librenms 提供的 compose.yml
+### 4.2. 修改 librenms 提供的 compose.yml
 
 1. 將整個檔案替換成以下內容：
 ```YMAL title="compose.yml"
@@ -292,7 +292,7 @@ sudo docker compose -f compose.yml restart
 ```
 
 
-## 進入 docker 容器的 shell 環境
+## 5. 進入 docker 容器的 shell 環境
 
 ```bash
 sudo docker exec -i -t librenms /bin/bash

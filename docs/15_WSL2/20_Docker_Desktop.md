@@ -2,25 +2,25 @@
 # Docker Desktop
 
 > [!warning]
-> 確保你的 Docker Desktop 版本至少是 **4.42 (2025/6)**，因為這是原生 IPv6 支援大幅改進的版本。
+> 確保你的 Docker Desktop 版本至少是 **4.42 (2025/6/4)**，因為這是原生 IPv6 支援大幅改進的版本。
 
 Docker Desktop 是桌面版的 Docker Engine（核心引擎）視窗管理程式，且可以跟 WSL2 整合，所以建議 Windows 系統安裝 Docker Desktop，這樣就不需要在每一個  WSL Linux環境下安裝 Docker Engine 了。
 
-## 下載安裝 Docker Desktop 
+## 1. 下載安裝 Docker Desktop 
 
 到這裡下載 docker desktop windows 版本，並安裝
 https://docs.docker.com/desktop/setup/install/windows-install/
 
 安裝過程保留預設值，登入帳號及問卷都可以直接跳過。
 
-## 設定 WSL2 整合
+## 2. 設定 WSL2 整合
 
 1.　開啟 Docker Desktop ，進入設定畫面，勾選要整合的 WSL 環境，按下套用，這樣 wsl ubuntu 就不須要安裝　docker engine ，卻可以直接在鏡中執行 docker 指令。
 ![[1750387009305.png]]
 
 2.　使用 Docker Deskop 最大的好處是網路的整合，我們可以直接在外部網路連線到 Host 的 ip，就可以直接存取到 docker 中的服務，不需要再像以前去設定什麼==橋接、 mirror模式或是連結埠轉發==等功能。
 
-## Docker Desktop 啟用 ipv6支援
+## 3. Docker Desktop 啟用 ipv6支援
 
 開啟 Docker Desktop 的設定，在 Docker Engine 設定黨內，加入以下設定。
 ```
@@ -35,7 +35,7 @@ https://docs.docker.com/desktop/setup/install/windows-install/
 
 ![[1750502653014.png]]
 
-## 啟動 docker desktop ，之前執行的 container 資料會不見，重新啟動 container 資料又會恢復
+## 4. 啟動 docker desktop ，之前執行的 container 資料會不見，重新啟動 container 資料又會恢復
 
 A: 以下為 Gemini 解答
 
@@ -43,7 +43,7 @@ A: 以下為 Gemini 解答
 
 ---
 
-### 原因分析
+### 4.1. 原因分析
 
 1. **Docker Desktop 的 WSL 2 後端依賴：** Docker Desktop 在 Windows 上運行時，預設會使用 WSL 2 作為其後端。這表示 Docker 引擎、映像檔和容器資料實際上是儲存在 WSL 2 虛擬機器內部的 VHDX 檔案中。
 2. **啟動順序的重要性：**
@@ -53,7 +53,7 @@ A: 以下為 Gemini 解答
 
 ---
 
-### 解決方案與建議
+### 4.2. 解決方案與建議
 
 為了確保您的 Docker 資料能夠一致且可靠地被讀取，請遵循以下建議：
 **優先啟動 WSL Ubuntu：**
