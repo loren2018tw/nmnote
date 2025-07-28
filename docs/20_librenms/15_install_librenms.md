@@ -179,6 +179,7 @@ sudo cp /opt/librenms/misc/lnms-completion.bash /etc/bash_completion.d/
 複製 librenms 提供的 snmpd 設定範本
 ```
 sudo cp /opt/librenms/snmpd.conf.example /etc/snmp/snmpd.conf
+sudo chmod 755 /etc/snmp/snmpd.conf
 ```
 
 編輯 /etc/snmp/snmpd.conf 設定檔，將檔案內的 RANDOMSTRINGGOESHERE 字串修改為 public 或是自訂的 snmp 社群字串(密碼)
