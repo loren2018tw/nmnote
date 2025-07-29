@@ -1,4 +1,4 @@
-# 警報
+# 警報傳送器
 
 裝置離線或是溫度過高， LibrenNMS 可以發出警報提醒，除了顯示警報在 LireNms 界面外，還可以使用多種通知方式 ex: mail、sms、telegram 通知網管，以下將介紹使用 telergam 或 mail 來傳送警報訊息，要主動傳送警報，有三個部份需要設定:
 
@@ -19,11 +19,11 @@
 在聊天室打上依序打上以下的內容，就可以取得機器人的 token，請記住這個資訊
 ![](2023-12-22-14-13-03.png)
 
-接著在瀏覽器打上，將<你的token>替換成前面取到的 token
+接著我們要取的聊天室 id，我們可以直接跟前面建立的 Librenms520bot 聊天，或是將 @Librenms520Bot 這個帳號加入某個群組，接著使用前面取得的 token 替換以下網址中的<你的token>
 
-[https://api.telegram.org/bot<你的token>/getUpdates](https://api.telegram.org/bot<你的token>/getUpdates)
+```https://api.telegram.org/bot<你的token>/getUpdates```
 
-我們需要的就是回傳資料裡面的聊天室id(chat id)
+我們需要的就是回傳資料裡面的聊天室id(chat id)，這個網址只會回傳 @Librenms520Bot 最近聊天的那的對話或是群組的 chatid，所以如果回傳的資料是空的，表示近期沒有 @Librenms520Bot 所在的群組有對話，請先在群組中隨意傳一些訊息，再重新連結以上網址。
 
 ![](2023-12-22-16-16-05.png)
 
@@ -41,19 +41,6 @@
 建立傳送器後，在該列的右方，有一個按鈕可以先讓我們先測試是否可以正常發送訊息，可以先確認正常後，再做接下來的「警報規則」及「範本」
 ![[1750664656676.png]]
 
-## Mail 傳送器（使用 postfix）
-
-使用 linux 系統本身的 smtp 來寄信最簡單，只需要在 ubuntu 安裝 postfix　套件
-```Shell
-sudo apt install postfix
-```
-
-在 Librenms 的【全域設定/警報/電子郵件設定】，將發送郵件的方式設定為 mail 或是 sendmail 都可以
-![[1750652432508.png]]
-
-接著建立 mail 傳送器即可
-
-![[1750653724238.png]]
 
 ## Mail 傳送器（使用 Gmail 應用程式密碼）
 

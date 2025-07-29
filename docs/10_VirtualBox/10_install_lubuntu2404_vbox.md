@@ -91,7 +91,7 @@ tags:
 >sudo 允許一般用戶以 root 或其他特定帳號權限執行程式，使用 sudo 會詢問使用者的密碼，這時候請輸入目前使用者(user) 的密碼，不是輸入 root 密碼，因為 Lubuntu 沒有啟用 root 帳號。
 
 「在終端機視窗」執行以下命令，安裝編譯核心模組需要的相關程式以及安裝 VBoxGuestAddition
-```shell
+```bash title="Shell"
 sudo apt update
 sudo apt install build-essential
 sudo ./VBoxLinuxAdditions.run
@@ -112,15 +112,15 @@ sudo ./VBoxLinuxAdditions.run
 
 apt 是 ubuntu 、 debian 系統命令列的套件安裝管理程式。執行以下指令安裝「 openssh-server」
 
-```bash
-apt install openssh-server
+```bash title="Shell"
+sudo apt install openssh-server
 ```
 
 ### 5.2. 安裝中文輸入法及補齊中文翻譯
 
 執行以下指令安裝「 fcitx + 新酷音」中文輸入法  。 
 
-```shell
+```bash title="Shell"
 sudo apt install fcitx5-chewing
 ```
 
@@ -128,7 +128,7 @@ sudo apt install fcitx5-chewing
 ![[20250123-10.png]]
 
 因為 Lubuntu 比較輕量，有些繁體中文翻譯套件預設沒安裝，我們順便將它補齊
-```bash
+```bash title="Shell"
 sudo apt install language-pack-zh-hant language-pack-gnome-zh-hant language-pack-kde-zh-hant libreoffice-l10n-zh-tw firefox-locale-zh-hant
 ```
 
@@ -143,7 +143,7 @@ sudo apt install language-pack-zh-hant language-pack-gnome-zh-hant language-pack
 
 >[!tip]
 >另外一個我最喜歡使用的套件管理程式是 Synaptic，也推薦大家使用看看
->```bash
+>```bash title="Shell"
 >sudo apt install synaptic apt-xapian-index
 >```
 

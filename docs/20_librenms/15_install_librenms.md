@@ -183,7 +183,6 @@ sudo chmod 755 /etc/snmp/snmpd.conf
 ```
 
 編輯 /etc/snmp/snmpd.conf 設定檔，將檔案內的 RANDOMSTRINGGOESHERE 字串修改為 public 或是自訂的 snmp 社群字串(密碼)
-`sudo nano /etc/snmp/snmpd.conf`
 
 重啟 snmpd 服務
 
