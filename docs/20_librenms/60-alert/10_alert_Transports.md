@@ -6,6 +6,32 @@
 2. **警報規則**： 什麼事件（條件）會觸發警報
 3. **警報範本**： 發生事件時要傳送的內容
 
+
+以下傳送方式，僅需要挑選想使用的通知方式即可。
+
+## mail 傳送器（使用 posfix）
+
+### 安裝 postfix
+如果想簡單的讓 Linux 本機可以傳送 mail ，不用經過任何其他 mail server ，可以安裝 postifx 這個套件。
+
+```Shell title="Shell"
+sudo apt update
+sudo apt install postfix
+```
+
+在安裝過程中，你可能會被要求配置 Postfix。通常，你可以選擇「**Internet Site**」作為你的郵件伺服器類型。
+![[1753935801117.png]]
+
+**System mail name (系統郵件名稱)**：這裡輸入你的伺服器完整網域名稱 (FQDN)，例如 `yourdomain.com`。如果你沒有自己的網域，可以使用伺服器的 IP 位址或主機名稱。通常直接按 Enter 就可以。
+
+### 新增 mail 傳送器
+
+![[1750653724238.png]]]
+
+建立好之後，可以先測試一下是否可以正常傳送成功
+![[1750664656676.png]]
+
+
 ## Telegram 傳送器
 
 ### 1. telegram 安裝及中文化
