@@ -113,9 +113,9 @@ sudo cp /etc/php/8.3/fpm/pool.d/www.conf /etc/php/8.3/fpm/pool.d/librenms.conf
 ```
 
 編輯 /etc/php/8.3/fpm/pool.d/librenms.conf
-將檔案內的 `[www]` 改為 `[librenms]`
+==將檔案內的 `[www]` 改為 `[librenms]`==
 
-將 `user` 和  `group` 設定改為  **librenms** 原來是設定為 `www-data`
+將 `user` 和  `group` 設定改為  **librenms**(原來是設定為 `www-data`)
 
 ```
 user = librenms
