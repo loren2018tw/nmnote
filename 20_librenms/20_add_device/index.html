@@ -1,0 +1,1435 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../15_install_librenms/">
+      
+      
+        <link rel="next" href="../30_common_usage/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Librenms 基本操作 - Loren's 網管筆記</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#librenms" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Loren's 網管筆記" class="md-header__button md-logo" aria-label="Loren's 網管筆記" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 1c-1.11 0-2 .89-2 2v4c0 1.11.89 2 2 2H1v2h12V9h-3c1.11 0 2-.89 2-2V3c0-1.11-.89-2-2-2zm0 2h6v4H4zM3 13v7h7v-2H5v-5zm11 0c-1.11 0-2 .89-2 2v4c0 1.11.89 2 2 2h-3v2h12v-2h-3c1.11 0 2-.89 2-2v-4c0-1.11-.89-2-2-2zm0 2h6v4h-6z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Loren's 網管筆記
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Librenms 基本操作
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="pink" data-md-color-accent="blue" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Loren's 網管筆記" class="md-nav__button md-logo" aria-label="Loren's 網管筆記" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 1c-1.11 0-2 .89-2 2v4c0 1.11.89 2 2 2H1v2h12V9h-3c1.11 0 2-.89 2-2V3c0-1.11-.89-2-2-2zm0 2h6v4H4zM3 13v7h7v-2H5v-5zm11 0c-1.11 0-2 .89-2 2v4c0 1.11.89 2 2 2h-3v2h12v-2h-3c1.11 0 2-.89 2-2v-4c0-1.11-.89-2-2-2zm0 2h6v4h-6z"></path></svg>
+
+    </a>
+    Loren's 網管筆記
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Welcome
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    10 VirtualBox
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            10 VirtualBox
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10_VirtualBox/05_vm_vs_container/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    虛擬機 vs 容器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10_VirtualBox/10_install_lubuntu2404_vbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    使用 Virtual Box 安裝 Lubuntu 24.04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10_VirtualBox/15_vbox_network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VirtualBox 網路設定
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    15 WSL2
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            15 WSL2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15_WSL2/10_wsl2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    WSL2 介紹
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15_WSL2/20_Docker_Desktop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker Desktop
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    20 librenms
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            20 librenms
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_librenms_introduce/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LibreNMS - SNMP 網路管理系統介紹
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_quick_start_use_docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    使用 Docker 快速安裝 librenms
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_install_librenms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    安裝 Librenms 在 Lubuntu 24.04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Librenms 基本操作
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Librenms 基本操作
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="此頁主題">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      此頁主題
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-base-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 更改界面語言及設定 base url
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 新增 snmp 裝置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 已加入的裝置設定
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 自動探索加入裝置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 自動探索加入裝置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. 【探索/一般探索設定】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. 【探索/網路】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. 【輪詢器/SNMP】
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 手動 snmp 掃描
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ping" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 僅 ping 監控裝置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. 裝置群組
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 裝置群組">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. 靜態群組
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. 動態群組
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30_common_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Librenms 常用應用介紹
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    資訊看板
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../70-weathermap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    (已過時)Weathermap 網管也要看天氣？？
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../80-custom_maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    自訂地圖
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9">
+        
+          
+          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    100 受控裝置如何啟用SNMP服務
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_9">
+            <span class="md-nav__icon md-icon"></span>
+            100 受控裝置如何啟用SNMP服務
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../100-%E5%8F%97%E6%8E%A7%E8%A3%9D%E7%BD%AE%E5%A6%82%E4%BD%95%E5%95%9F%E7%94%A8SNMP%E6%9C%8D%E5%8B%99/linux_enabld_snmpd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linux 啟用 snmpd
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../100-%E5%8F%97%E6%8E%A7%E8%A3%9D%E7%BD%AE%E5%A6%82%E4%BD%95%E5%95%9F%E7%94%A8SNMP%E6%9C%8D%E5%8B%99/switch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    防火牆、交換器啟用 snmp 服務
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../100-%E5%8F%97%E6%8E%A7%E8%A3%9D%E7%BD%AE%E5%A6%82%E4%BD%95%E5%95%9F%E7%94%A8SNMP%E6%9C%8D%E5%8B%99/win11_enable_snmpd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Win11 啟用 snmp 服務
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10">
+        
+          
+          <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    60 alert
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_10">
+            <span class="md-nav__icon md-icon"></span>
+            60 alert
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-alert/10_alert_Transports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    警報傳送器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-alert/20_alert_Rule/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    警報規則 &amp; 警報範本
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="此頁主題">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      此頁主題
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-base-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 更改界面語言及設定 base url
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 新增 snmp 裝置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 已加入的裝置設定
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 自動探索加入裝置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 自動探索加入裝置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. 【探索/一般探索設定】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. 【探索/網路】
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. 【輪詢器/SNMP】
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 手動 snmp 掃描
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ping" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 僅 ping 監控裝置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. 裝置群組
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 裝置群組">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. 靜態群組
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. 動態群組
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="librenms">Librenms 基本操作<a class="headerlink" href="#librenms" title="Permanent link">¶</a></h1>
+<h2 id="1-base-url">1. 更改界面語言及設定 base url<a class="headerlink" href="#1-base-url" title="Permanent link">¶</a></h2>
+<p>先將 librenms 界面改為繁體中文，以下將使用中文界面做介紹</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="1738764958548.png" data-desc-position="bottom"><img alt="1738764958548.png" src="1738764958548.png"></a></p>
+<p>在全域設定裡面，有個【指定URL】（base url），建議先清空。如果主機有正式 domain name，再填入完整網址。 在執行過程中如果發現某個功能會跳到不正確的網址，就表示是這裡的 base url 設定有錯誤。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="1738804637931.png" data-desc-position="bottom"><img alt="1738804637931.png" src="1738804637931.png"></a>
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="1738810806563.png" data-desc-position="bottom"><img alt="1738810806563.png" src="1738810806563.png"></a></p>
+<h2 id="2-snmp">2. 新增 snmp 裝置<a class="headerlink" href="#2-snmp" title="Permanent link">¶</a></h2>
+<p>安裝 librenms 的機器機本身就是一個網路裝置，所以在安裝 librenms 過程中，我們已經為這臺 linux 主機設定好 snmp 服務。所以我們第一步就先將本身的機器加入 librenms 監控。</p>
+<p>要新增 snmp 裝置，使用上方選單的【裝置/新增裝置】</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="1738801464671.png" data-desc-position="bottom"><img alt="1738801464671.png" src="1738801464671.png"></a></p>
+<p>接著填入要受控的裝置 ip ( ipv6 也可以)、 udp( 如果使用ipv6則請改選擇 udp6)， community 填入自己設定的社群名稱，community  留空白表示就是  public。</p>
+<p>這裡我們將 ip 填入 localhost ，按下 ++Add Device++ ，先讓 nms 監控自己這台主機。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="2023-12-15-20-04-11.png" data-desc-position="bottom"><img alt="" src="2023-12-15-20-04-11.png"></a></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>建議先使用 ping 測試是否 ping 的到要受控的裝置。 如果 ping 不到表示機器未開機或是連線受阻擋。我們也可以在加入裝置裝置時，勾選「Force add」，這樣 Librenms 就不會做連線測試，會強制加入這個裝置。</p>
+</div>
+<p>如果還知道其他防火牆或是網管型交換器的 ip 跟 community，也可以一台一台手動加進來。</p>
+<p>我們可以執行上方選單【裝置/所有裝置】，就可以看到所有受控的裝置。剛加入的裝置因為 librenms 還未輪詢收集資料，所以要稍等幾分鐘才可以看到一些資料。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="1738804070501.png" data-desc-position="bottom"><img alt="1738804070501.png" src="1738804070501.png"></a></p>
+<h2 id="3">3. 已加入的裝置設定<a class="headerlink" href="#3" title="Permanent link">¶</a></h2>
+<p>每台受控裝置，我們還可修改一些這臺裝置的設定。例如要顯示的名稱，機器的位置...</p>
+<p>進入每臺機器的頁面，點選右側的齒輪圖示，可以進入裝置的設定頁面</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="1738850922308.png" data-desc-position="bottom"><img alt="1738850922308.png" src="1738850922308.png"></a></p>
+<p>其中確認裝置的類型，還有複寫機器放置的位置 sysLocation，對於管理會有很大的幫助，建議這兩個部份資料正確。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="1738851312633.png" data-desc-position="bottom"><img alt="1738851312633.png" src="1738851312633.png"></a></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>位置可以簡單的設定用來識別的名稱外，還可以在後面加上座標（可以使用 Google地圖點選位置就會顯示座標），座標是使用[ , ]  EX：A5F機房 [24.137224,120.699388]</p>
+</div>
+<h2 id="4">4. 自動探索加入裝置<a class="headerlink" href="#4" title="Permanent link">¶</a></h2>
+<p>要一台一台加入受控裝置實在太麻煩，所以 librenms 有提供一些自動探索加入裝置的機制，這個機制預設是6小時會執行一次(新增的裝置5分鐘後會使用自動探索一次)。</p>
+<p>首先要先做一些必要的設定。
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="1738804637931.png" data-desc-position="bottom"><img alt="1738804637931.png" src="1738804637931.png"></a></p>
+<h3 id="41">4.1. 【探索/一般探索設定】<a class="headerlink" href="#41" title="Permanent link">¶</a></h3>
+<p>因為交換器的 snmp 可能 sysName 是空白沒有設定，所以要允許 sysName 可以重複，不然就沒辦加入相同名稱的裝置。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="2023-12-21-08-36-34.png" data-desc-position="bottom"><img alt="" src="2023-12-21-08-36-34.png"></a></p>
+<h3 id="42">4.2. 【探索/網路】<a class="headerlink" href="#42" title="Permanent link">¶</a></h3>
+<p>要掃描的 ip 範圍，這邊要注意如果是要探索 10.1.x.x 的所有位址，網域寫法一定要是 10.1==.0.0==/16 ，前面網址如果不是 .0.0 探索會出現錯誤</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="2023-12-21-08-47-10.png" data-desc-position="bottom"><img alt="" src="2023-12-21-08-47-10.png"></a></p>
+<h3 id="43-snmp">4.3. 【輪詢器/SNMP】<a class="headerlink" href="#43-snmp" title="Permanent link">¶</a></h3>
+<p>community 如果只有 public 這邊就不用新增，如果有自訂的 community ，要在這裡新增，這樣才能成功加入新裝置
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="2023-12-21-09-17-22.png" data-desc-position="bottom"><img alt="" src="2023-12-21-09-17-22.png"></a></p>
+<p>4.自動探索會要求設備要有主機名稱（dns 要設定），預設不使用 ip 增加裝置，所以我們還是必須要去編輯設定檔。 </p>
+<p>編輯設定檔</p>
+<p></p><div class="highlight"><pre><span></span><code>sudo -u librenms nano /opt/librenms/config.php
+</code></pre></div>
+在設定檔加上以下這一行
+<div class="highlight"><pre><span></span><code>$config['discovery_by_ip'] = true;
+</code></pre></div>
+以上設定好， librenms 就會自動探索其他裝置。 <p></p>
+<h2 id="5-snmp">5. 手動 snmp 掃描<a class="headerlink" href="#5-snmp" title="Permanent link">¶</a></h2>
+<p>自動探索是利用受控裝置內的資訊去探索其他裝置，不是把整網域都掃一遍嘗試加入。我們可以使用手動掃描整個網域的 snmp 來強制更新裝置。</p>
+<p>只要在 /opt/librenms/ 目錄下，執行 <strong class="hash">snmp-scan</strong>.py -v 即會手動掃描前面自動探索設定的網域</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/opt/librenms/
+sudo<span class="w"> </span>-u<span class="w"> </span>librenms<span class="w"> </span>./snmp-scan.py<span class="w"> </span>-v<span class="w"> </span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>snmp-scan.py 這個程式非常佔用記憶體 ，建議不要一次掃太大範圍的網域。我們也可以手動指定要掃描的網域範圍例如 10.1.4.0/24 就改用下列指令
+</p><div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/opt/librenms/
+sudo<span class="w"> </span>-u<span class="w"> </span>librenms<span class="w"> </span>./snmp-scan.py<span class="w"> </span>-v<span class="w"> </span><span class="m">10</span>.1.4.0/24
+</code></pre></div><p></p>
+</div>
+<h2 id="6-ping">6. 僅 ping 監控裝置<a class="headerlink" href="#6-ping" title="Permanent link">¶</a></h2>
+<p>如果裝置沒有支援 snmp ，但是希望還是能監控裝置是否斷線(例如 ipcam ...)，我們可以使用定期 ping 裝置看看有沒有回應的方式來監控。</p>
+<p>只要在新增裝置時，停用 snmp 選項，即可加入「僅 ping 裝置」：
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="1741831404376.png" data-desc-position="bottom"><img alt="1741831404376.png" src="1741831404376.png"></a></p>
+<h2 id="7">7. 裝置群組<a class="headerlink" href="#7" title="Permanent link">¶</a></h2>
+<p>除了預設已經將裝置一類型分類外，我們可以將裝置分成不同群組，方邊我們一次觀看分組的裝置。另外針對不同登入的使用者，我們也可以利用裝置的群組，來給予使用者監看的權限。
+對於警報規則，也可以依照群組來分類是否觸發警報，或是依群組傳送到不同傳送器。</p>
+<p>群組管理功能在主選單【裝置/群組管理】</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="1741832589011.png" data-desc-position="bottom"><img alt="1741832589011.png" src="1741832589011.png"></a></p>
+<h3 id="71">7.1. 靜態群組<a class="headerlink" href="#71" title="Permanent link">¶</a></h3>
+<p>手動將裝置一台一台加入某群組，就稱為靜態群組。</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="1741833753009.png" data-desc-position="bottom"><img alt="1741833753009.png" src="1741833753009.png"></a></p>
+<h3 id="72">7.2. 動態群組<a class="headerlink" href="#72" title="Permanent link">¶</a></h3>
+<p>我們也可以利用一些條件設定，動態將裝置分組，省掉一台裝置一台裝置加入群組。分類規則是使用儲存在 MariaDB 資料庫中的表格「欄位名稱」做規則設定。</p>
+<p>以下示範要將「僅 ping 裝置」加入 ipcam 分類，則 rule 設定方式如下圖：</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="1741834037079.png" data-desc-position="bottom"><img alt="1741834037079.png" src="1741834037079.png"></a></p>
+<p>動態群組可以幫我們快速分組，如果還希望能做更細微設定，我們可以先用動態分組設定條件，<strong>先按下儲存後 Librems 就會進行規則分組。</strong></p>
+<p>之後再進來編輯群組設定，將上方的類型由「動態」改選為「靜態」，這樣利用動態分組加入的裝置會保留，我們就可以依照靜態分組的分式，手動增刪裝置，做更細微的微調。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+    </span>
+    2025-10-08
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../15_install_librenms/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 安裝 Librenms 在 Lubuntu 24.04">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                安裝 Librenms 在 Lubuntu 24.04
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../30_common_usage/" class="md-footer__link md-footer__link--next" aria-label="Next: Librenms 常用應用介紹">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Librenms 常用應用介紹
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.footnote.tooltips", "navigation.footer", "content.code.copy"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
